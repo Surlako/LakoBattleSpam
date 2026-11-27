@@ -1,0 +1,6 @@
+## Interface: 16001
+## Title: Lako Battle Spam
+## Notes: Hides repeated numeric battleground player-join notices.
+## Author: Lako
+## Version: 1.0.1
+LakoBattleSpam.lua
