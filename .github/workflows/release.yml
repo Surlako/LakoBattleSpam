@@ -1,0 +1,33 @@
+name: Publish WowUp release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.lua'
+      - '*.toc'
+      - 'README.txt'
+      - '.github/scripts/release.py'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wowup-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out addon
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Package and publish Forever release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/release.py --publish
